@@ -1,6 +1,6 @@
 
 # Homework2 outlines
-![airflow-logo.jpeg](attachment:airflow-logo.jpeg)
+![airflow-logo](https://user-images.githubusercontent.com/44624585/61552718-6fe3af00-aa0d-11e9-8563-45253ed5e4c6.jpeg)
 
 #### Task:
 Create a data pipeline using Airflow that perform ETL jobs to extract data and put into a storage of your choice.
@@ -24,9 +24,12 @@ Create a data pipeline using Airflow that perform ETL jobs to extract data and p
 ### Scraping
 First of all, what it does is scrape the headlines of top news on [CBC](https://www.cbc.ca/news/canada) using [BeautifulSoap](https://www.crummy.com/software/BeautifulSoup/bs4/doc/), which is a Python library for web scraping.<br>
 This is the top page of CBC at that time I am creating this Notebook, let's have a look at the headline of the left news where you can see Japanese flag. 
-![Screen%20Shot%202019-07-18%20at%202.55.09%20PM.png](attachment:Screen%20Shot%202019-07-18%20at%202.55.09%20PM.png)
+<img width="1435" alt="ss1" src="https://user-images.githubusercontent.com/44624585/61552759-8e49aa80-aa0d-11e9-92a6-2c1518fd4a56.png">
 <br>
-![Screen%20Shot%202019-07-18%20at%202.57.45%20PM.png](attachment:Screen%20Shot%202019-07-18%20at%202.57.45%20PM.png)
+<br>
+<br>
+This is an example of headlines.
+<img width="567" alt="ss2" src="https://user-images.githubusercontent.com/44624585/61552804-aa4d4c00-aa0d-11e9-8553-1397cce4b7df.png">
 **This is a headline I am going to get.** On this website, every headline of news is inside of `<h3>` tag.
 
 So we first scrape all of the text inside of `<h3>` tags on the top page but we need pay attention to things scraped.
@@ -40,7 +43,7 @@ avoid_words = ["My Local",
 ```
 I created this list that contains words that the python script scrapes because those are also inside of `<h3>` tags but we don't want to write them into csv file.
 In the picture below, you can find some of the words such as `Connect with CBC`, `Contact CBC`, etc.
-![Screen%20Shot%202019-07-18%20at%203.20.42%20PM.png](attachment:Screen%20Shot%202019-07-18%20at%203.20.42%20PM.png)
+<img width="1433" alt="ss3" src="https://user-images.githubusercontent.com/44624585/61552970-1465f100-aa0e-11e9-97a6-ae5deecbfb51.png">
 <br>
 <br>
 After scraping the headlines, it creates a 2 dimensional list that contains information below.
