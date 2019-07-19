@@ -35,7 +35,9 @@ default_args = {
     # at least 5 minutes
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
+    'schedule_interval': '@once',
 }
+
 
 # Create a new dag
 dag = DAG(
@@ -45,6 +47,7 @@ dag = DAG(
     # Continue to run DAG once per day
     schedule_interval=timedelta(days=1),
 )
+
 
 # Define task1
 task1 = BashOperator(
@@ -108,12 +111,7 @@ task2 = PythonOperator(
 def write_csv(**kwargs):
     """
     Write information in the given list into a csv file.
-
-    Parameters
-    ----------
-    current_top_news: list
-    2 dimensional list, each element has ["headline1", "url", datetime]
-    which is going to be a row in the csv.
+    To get the list we just created, we use Xcoms.
 
     Returns
     -------
@@ -121,8 +119,11 @@ def write_csv(**kwargs):
 
     When we success writing things correctly, returns True. Otherwise False.
     """
+
+    # Xcoms to get the list
     ti = kwargs['ti']
     current_top_news = ti.xcom_pull(task_ids='scraping')
+
     try:
         with open(str(csv_path), "a") as file:
             writer = csv.writer(file, lineterminator='\n')
@@ -133,7 +134,6 @@ def write_csv(**kwargs):
         return False
 
 
-# Define task3
 task3 = PythonOperator(
     task_id="writing_csv",
     python_callable=write_csv,
@@ -141,11 +141,27 @@ task3 = PythonOperator(
     dag=dag)
 
 
-# Define task4
-task4 = BashOperator(
-    task_id="echo2",
-    bash_command="echo Done!",
-    dag=dag,
+def confirmation(**kwargs):
+    """
+    If everything is done properly, print "Done!!!!!!"
+    Otherwise print "Failed."
+    """
+
+    # Xcoms to get status which is the return value of write_csv().
+    ti = kwargs['ti']
+    status = ti.xcom_pull(task_ids='writing_csv')
+
+    if status:
+        print("Done!!!!!!")
+    else:
+        print("Failed.")
+
+
+task4 = PythonOperator(
+    task_id="confirmation",
+    python_callable=confirmation,
+    provide_context=True,
+    dag=dag
 )
 
 
