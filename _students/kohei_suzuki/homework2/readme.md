@@ -28,18 +28,18 @@ This is the top page of CBC at that time I am creating this Notebook, let's have
 <br>
 <br>
 <br>
-This is an example of headlines.
-<img width="567" alt="ss2" src="https://user-images.githubusercontent.com/44624585/61552804-aa4d4c00-aa0d-11e9-8553-1397cce4b7df.png">
+This is an example of headlines.<br>
+<img width="567" alt="ss2" src="https://user-images.githubusercontent.com/44624585/61552804-aa4d4c00-aa0d-11e9-8553-1397cce4b7df.png"><br>
 **This is a headline I am going to get.** On this website, every headline of news is inside of `<h3>` tag.
 
 So we first scrape all of the text inside of `<h3>` tags on the top page but we need pay attention to things scraped.
 ```
 avoid_words = ["My Local",
-                       "Editor's Blog",
-                       "Connect with CBC",
-                       "Contact CBC",
-                       "Services & Info",
-                       "Accessibility"]
+              "Editor's Blog",
+              "Connect with CBC",
+              "Contact CBC",
+              "Services & Info",
+              "Accessibility"]
 ```
 I created this list that contains words that the python script scrapes because those are also inside of `<h3>` tags but we don't want to write them into csv file.
 In the picture below, you can find some of the words such as `Connect with CBC`, `Contact CBC`, etc.
@@ -56,11 +56,11 @@ The reason why we create 2 dimensional list instead of 1 dimension is that it is
 This list below is an example:<br>
 ```
 list_example = [["Headline1", "https://www.cbc.ca/news/canada", "2019-07-16 15:29:00"],
-                       ["Headline2", "https://www.cbc.ca/news/canada", "2019-07-16 15:29:00"],
-                       :
-                       :
-                       :
-                       ["HeadlineN", "https://www.cbc.ca/news/canada", "2019-07-16" 15:29:00]]
+              ["Headline2", "https://www.cbc.ca/news/canada", "2019-07-16 15:29:00"],
+              :
+              :
+              :
+              ["HeadlineN", "https://www.cbc.ca/news/canada", "2019-07-16" 15:29:00]]
 ```
 
 
