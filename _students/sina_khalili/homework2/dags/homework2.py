@@ -30,7 +30,7 @@ dag = DAG(
 
 task1 = BashOperator(
     task_id="blastoff",
-    bash_command="echo '🚀 blastoff'",
+    bash_command="echo blastoff",
     dag=dag,
 )
 
@@ -40,7 +40,7 @@ def get_current_astronauts(request):
     """
     json_data =  requests.get(request).json()
 
-    with open('../data/data.json', 'w') as outfile:
+    with open('data/raw/data.json', 'w') as outfile:
         json.dump(json_data, outfile)
 
 task2 = PythonOperator(
@@ -54,10 +54,10 @@ def turn_json_into_csv():
     """
     Turns the above json into a csv file
     """
-    with open('../data/data.json') as json_file:
+    with open('data/processed/data.json') as json_file:
         data = json.load(json_file)
 
-        with open('../data/data.csv','w') as csv_file:
+        with open('data/raw/data.csv','w') as csv_file:
             writer = csv.writer(
                 csv_file,
                 delimiter=',',
