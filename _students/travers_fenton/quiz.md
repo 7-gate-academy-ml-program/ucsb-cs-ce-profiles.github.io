@@ -1,6 +1,6 @@
 ---
 name: Fenton Travers
-resume: true
+resume: false
 ---
 
 
